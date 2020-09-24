@@ -1,34 +1,29 @@
 package com.example.wiplocation.splash
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.example.wiplocation.R
-import com.example.wiplocation.WipApplication
+import com.example.wiplocation.base.BaseActivity
+import com.example.wiplocation.location_list.LocationListActivity
 
-class SplashActivity : AppCompatActivity(), SplashView {
+class SplashActivity : BaseActivity(), SplashView {
 
-    lateinit var presenter: SplashPresenter
+    private lateinit var presenter: SplashPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        presenter = SplashPresenter(this, getWipApplication().realmDbService)
+        presenter = SplashPresenter(this)
         presenter.getLocationsList()
     }
 
-    override fun goToLocationsListActivity() {
+    override fun goToLocationsListActivity(hasInternetConnection: Boolean) {
         Toast.makeText(applicationContext, "Locations list fetched successfully", Toast.LENGTH_LONG).show()
-        //TODO go to locations list activity
-    }
-
-    override fun showErrorMessage(errorMessage: String) {
-        Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_LONG).show()
-    }
-
-    override fun getWipApplication(): WipApplication {
-        return (application as WipApplication)
+        val intent = Intent(this, LocationListActivity::class.java)
+        intent.putExtra(HAS_INTERNET_CONNECTION, hasInternetConnection)
+        startActivity(intent)
     }
 
     override fun onNoNetworkConnectivity() {
@@ -44,5 +39,9 @@ class SplashActivity : AppCompatActivity(), SplashView {
             }
         }
         alertDialogBuilder.create().show()
+    }
+
+    companion object {
+        const val HAS_INTERNET_CONNECTION ="has_internet_connection"
     }
 }

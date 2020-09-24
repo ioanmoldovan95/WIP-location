@@ -3,8 +3,8 @@ package com.example.wiplocation.splash
 import android.content.Context
 import android.net.ConnectivityManager
 import com.example.wiplocation.R
+import com.example.wiplocation.base.BasePresenter
 import com.example.wiplocation.model.LocationListResponse
-import com.example.wiplocation.service.RealmDbService
 import com.example.wiplocation.service.WipLocationService
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,14 +12,17 @@ import retrofit2.Response
 
 class SplashPresenter(
     val splashView: SplashView,
-    val realmDbService: RealmDbService
-): LocationsDbCallback {
+): BasePresenter(splashView), LocationsDbCallback {
     private val wipLocationService: WipLocationService =
         splashView.getWipApplication().wipLocationService
 
     fun getLocationsList() {
         if (!hasNetworkConnectivity()) {
-            splashView.onNoNetworkConnectivity()
+            if(realmDbService.hasData()){
+                splashView.goToLocationsListActivity(false)
+            } else {
+                splashView.onNoNetworkConnectivity()
+            }
         } else {
             wipLocationService.getLocationsList().enqueue(object : Callback<LocationListResponse> {
                 override fun onResponse(

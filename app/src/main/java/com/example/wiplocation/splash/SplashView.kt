@@ -1,10 +1,8 @@
 package com.example.wiplocation.splash
 
-import com.example.wiplocation.WipApplication
+import com.example.wiplocation.base.BaseView
 
-interface SplashView {
-    fun goToLocationsListActivity()
-    fun showErrorMessage(errorMessage: String)
+interface SplashView : BaseView{
+    fun goToLocationsListActivity(hasInternetConnection: Boolean = true)
     fun onNoNetworkConnectivity();
-    fun getWipApplication(): WipApplication
 }
