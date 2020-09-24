@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wiplocation.R
 import com.example.wiplocation.WipApplication
-import com.example.wiplocation.model.Location
 
 class SplashActivity : AppCompatActivity(), SplashView {
 
@@ -15,15 +14,16 @@ class SplashActivity : AppCompatActivity(), SplashView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        presenter = SplashPresenter(this)
+        presenter = SplashPresenter(this, getWipApplication().realmDbService)
         presenter.getLocationsList()
     }
 
-    override fun onGetLocationsListSuccess(locationsList: ArrayList<Location>) {
+    override fun goToLocationsListActivity() {
         Toast.makeText(applicationContext, "Locations list fetched successfully", Toast.LENGTH_LONG).show()
+        //TODO go to locations list activity
     }
 
-    override fun onGetLocationsListFailure(errorMessage: String) {
+    override fun showErrorMessage(errorMessage: String) {
         Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_LONG).show()
     }
 
@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity(), SplashView {
         return (application as WipApplication)
     }
 
-    override fun onNoNetworkConectivity() {
+    override fun onNoNetworkConnectivity() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         with(alertDialogBuilder) {
             setTitle(R.string.network_error_dialog_title)
@@ -43,6 +43,6 @@ class SplashActivity : AppCompatActivity(), SplashView {
                 _, _ -> finish()
             }
         }
-        alertDialogBuilder.show()
+        alertDialogBuilder.create().show()
     }
 }
