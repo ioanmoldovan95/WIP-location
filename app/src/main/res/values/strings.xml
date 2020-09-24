@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WIP Location</string>
+    <string name="unknown_error">An unknown error has occurred, please try again later</string>
+    <string name="network_error_dialog_title">No Internet?</string>
+    <string name="network_error_dialog_description">It seems there is a problem with your Internet connection. Please verify it and try again</string>
+    <string name="retry">Retry</string>
+    <string name="exit">Exit</string>
 </resources>
