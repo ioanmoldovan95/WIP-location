@@ -28,6 +28,11 @@ class RealmDbService(private val realm: Realm) {
         }
     }
 
+    fun getLocationByLabel(label: String, callback:LocationsDbCallback) {
+        val result = realm.where(WipLocation::class.java).equalTo("label", label).findFirst()
+        callback.onGetLocationSuccess(result)
+    }
+
     fun hasData(): Boolean {
         return realm.where(WipLocation::class.java).findAll().size > 0
     }

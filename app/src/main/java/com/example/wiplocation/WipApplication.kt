@@ -34,4 +34,8 @@ class WipApplication : Application() {
 
         realmDbService = RealmDbService(Realm.getInstance(realmConfiguration))
     }
+
+    companion object {
+        const val EMPTY_STRING = ""
+    }
 }

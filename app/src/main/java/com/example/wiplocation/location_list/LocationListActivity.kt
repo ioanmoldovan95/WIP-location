@@ -1,6 +1,7 @@
 package com.example.wiplocation.location_list
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
@@ -9,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wiplocation.R
 import com.example.wiplocation.base.BaseActivity
+import com.example.wiplocation.location_details.LocationDetailsActivity
 import com.example.wiplocation.model.WipLocation
 import io.realm.RealmResults
 
-class LocationListActivity : BaseActivity(), LocationListView {
+class LocationListActivity : BaseActivity(), LocationListView, LocationsListClickListener {
     lateinit var locationsRecyclerView: RecyclerView
     private lateinit var presenter: LocationsListPresenter
 
@@ -50,7 +52,7 @@ class LocationListActivity : BaseActivity(), LocationListView {
     override fun updateLocations(results: RealmResults<WipLocation>, shouldInit: Boolean) {
         if (shouldInit) {
             locationsRecyclerView.adapter =
-                LocationsAdapter(results)
+                LocationsAdapter(results, this)
             if (hasLocationPermissions()) {
                 presenter.computeLocations(results)
             }
@@ -78,7 +80,14 @@ class LocationListActivity : BaseActivity(), LocationListView {
         showErrorMessage(getString(R.string.location_error_string))
     }
 
+    override fun onLocationClicked(label: String) {
+        val intent = Intent(this, LocationDetailsActivity::class.java)
+        intent.putExtra(LOCATION_LABEL_EXTRA, label)
+        startActivity(intent)
+    }
+
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 10001
+        const val LOCATION_LABEL_EXTRA = "location_label_extra"
     }
 }

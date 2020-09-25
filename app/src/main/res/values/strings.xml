@@ -6,4 +6,7 @@
     <string name="retry">Retry</string>
     <string name="exit">Exit</string>
     <string name="location_error_string">There was an error while trying to get your location. Maybe you denied location permissions?</string>
+    <string name="address">Address: %s</string>
+    <string name="distance">Distance: %s</string>
+    <string name="coordinates">Lat: %f, Lng: %f</string>
 </resources>

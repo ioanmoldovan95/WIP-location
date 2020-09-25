@@ -22,7 +22,6 @@ class SplashActivity : BaseActivity(), SplashView {
     override fun goToLocationsListActivity(hasInternetConnection: Boolean) {
         Toast.makeText(applicationContext, "Locations list fetched successfully", Toast.LENGTH_LONG).show()
         val intent = Intent(this, LocationListActivity::class.java)
-        intent.putExtra(HAS_INTERNET_CONNECTION, hasInternetConnection)
         startActivity(intent)
     }
 
@@ -39,9 +38,5 @@ class SplashActivity : BaseActivity(), SplashView {
             }
         }
         alertDialogBuilder.create().show()
-    }
-
-    companion object {
-        const val HAS_INTERNET_CONNECTION ="has_internet_connection"
     }
 }

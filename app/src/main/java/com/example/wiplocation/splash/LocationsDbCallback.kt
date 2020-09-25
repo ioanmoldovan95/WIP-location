@@ -7,4 +7,5 @@ interface LocationsDbCallback {
     fun onPersistSuccess() {}
     fun onPersistFailed(error: String?) {}
     fun onReadLocationsSuccess(results: RealmResults<WipLocation>) {}
+    fun onGetLocationSuccess(result: WipLocation?) {}
 }
