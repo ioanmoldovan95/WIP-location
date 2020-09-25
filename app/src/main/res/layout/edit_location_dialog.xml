@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/location_details_item_margin_large"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="@dimen/location_details_item_margin_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Edit location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/label_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/address_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/address_hint"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_edit_text" />
+
+    <EditText
+        android:id="@+id/lat_edit_text"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/latitude_hint"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        android:layout_marginEnd="@dimen/location_details_item_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/lng_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/address_edit_text" />
+
+    <EditText
+        android:id="@+id/lng_edit_text"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/longitude_hint"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        android:layout_marginStart="@dimen/location_details_item_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lat_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/address_edit_text" />
+
+    <EditText
+        android:id="@+id/image_url_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/image_url_hint"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lat_edit_text" />
+
+    <Button
+        android:id="@+id/positive_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/positive_button_text"
+        android:layout_marginStart="@dimen/location_details_item_margin"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lat_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/image_url_edit_text" />
+
+    <Button
+        android:id="@+id/negative_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/negative_button_text"
+        android:layout_marginEnd="@dimen/location_details_item_margin"
+        android:layout_marginTop="@dimen/location_details_item_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/lng_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/image_url_edit_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,15 @@
     <string name="address">Address: %s</string>
     <string name="distance">Distance: %s</string>
     <string name="coordinates">Lat: %f, Lng: %f</string>
+    <string name="change_orientation">Change Orientation</string>
+    <string name="edit_location">Edit Location</string>
+    <string name="label_hint">Label</string>
+    <string name="address_hint">Address</string>
+    <string name="latitude_hint">Latitude</string>
+    <string name="longitude_hint">Longitude</string>
+    <string name="image_url_hint">Image URL</string>
+    <string name="add_location_title">Add New Location</string>
+    <string name="edit_location_title">Edit Location</string>
+    <string name="positive_button_text">Save</string>
+    <string name="negative_button_text">Cancel</string>
 </resources>

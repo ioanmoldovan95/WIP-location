@@ -4,27 +4,43 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wiplocation.R
 import com.example.wiplocation.base.BaseActivity
+import com.example.wiplocation.base.LocationDetailsDialog
+import com.example.wiplocation.base.LocationDialogCallback
 import com.example.wiplocation.location_details.LocationDetailsActivity
 import com.example.wiplocation.model.WipLocation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.RealmResults
 
-class LocationListActivity : BaseActivity(), LocationListView, LocationsListClickListener {
+class LocationListActivity : BaseActivity(), LocationListView, LocationsListClickListener, LocationDialogCallback {
     lateinit var locationsRecyclerView: RecyclerView
     private lateinit var presenter: LocationsListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_list)
+        setSupportActionBar(findViewById(R.id.toolbar))
         presenter = LocationsListPresenter(this)
         locationsRecyclerView = findViewById(R.id.location_recycler_view)
         locationsRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            addNewLocation()
+        }
         presenter.readLocations()
+    }
+
+    private fun addNewLocation() {
+        val dialog = LocationDetailsDialog()
+        dialog.setLocationDialogCallback(this)
+        dialog.show(supportFragmentManager, "dialog")
     }
 
     private fun hasLocationPermissions(): Boolean {
@@ -84,6 +100,15 @@ class LocationListActivity : BaseActivity(), LocationListView, LocationsListClic
         val intent = Intent(this, LocationDetailsActivity::class.java)
         intent.putExtra(LOCATION_LABEL_EXTRA, label)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.list_activity_menu, menu)
+        return true
+    }
+
+    override fun onPositiveButtonClick(location: WipLocation) {
+        presenter.addNewLocation(location)
     }
 
     companion object {

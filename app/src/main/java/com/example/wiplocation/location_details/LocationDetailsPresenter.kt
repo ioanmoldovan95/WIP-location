@@ -16,4 +16,8 @@ class LocationDetailsPresenter(private val locationDetailsView: LocationDetailsV
             locationDetailsView.onLocationFetchedSuccess(it)
         }
     }
+
+    fun saveLocation(location: WipLocation) {
+        realmDbService.updateLocation(wipLocation = location)
+    }
 }

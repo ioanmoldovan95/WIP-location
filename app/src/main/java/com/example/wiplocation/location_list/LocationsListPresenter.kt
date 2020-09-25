@@ -45,4 +45,18 @@ class LocationsListPresenter(private val locationListView: LocationListView) : B
             "$normDistance km"
         }
     }
+
+    @SuppressLint("MissingPermission")
+    fun addNewLocation(wipLocation: WipLocation) {
+        val locationProvider = LocationServices.getFusedLocationProviderClient(locationListView as AppCompatActivity)
+        locationProvider.lastLocation.addOnSuccessListener {
+                val location = Location(WipApplication.EMPTY_STRING)
+                location.latitude = wipLocation.lat
+                location.longitude = wipLocation.lng
+                val distance = location.distanceTo(it)
+                realmDbService.updateLocation(wipLocation, getDistanceString(distance))
+        }.addOnFailureListener {
+            locationListView.showLocationFailedErrorMessage()
+        }
+    }
 }

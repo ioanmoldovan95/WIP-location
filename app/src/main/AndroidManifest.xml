@@ -23,7 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".location_list.LocationListActivity" />
-        <activity android:name=".location_details.LocationDetailsActivity" />
+        <activity android:name=".location_details.LocationDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".location_list.LocationListActivity"/>
+        </activity>
     </application>
-
 </manifest>

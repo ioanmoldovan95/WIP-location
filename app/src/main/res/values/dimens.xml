@@ -4,4 +4,5 @@
     <dimen name="location_item_layout_margin">12dp</dimen>
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="location_details_item_margin">12dp</dimen>
+    <dimen name="location_details_item_margin_large">16dp</dimen>
 </resources>
