@@ -1,4 +1,4 @@
-package com.example.wiplocation.service
+package com.example.wiplocation.webservice
 
 import com.example.wiplocation.model.LocationListResponse
 import retrofit2.Call

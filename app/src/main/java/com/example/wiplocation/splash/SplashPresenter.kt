@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import com.example.wiplocation.R
 import com.example.wiplocation.base.BasePresenter
 import com.example.wiplocation.model.LocationListResponse
-import com.example.wiplocation.service.WipLocationService
+import com.example.wiplocation.webservice.WipLocationService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +55,7 @@ class SplashPresenter(
         splashView.goToLocationsListActivity()
     }
 
-    override fun onPersistFailed(error: String) {
-        splashView.showErrorMessage(error)
+    override fun onPersistFailed(error: String?) {
+        splashView.showErrorMessage(error ?: splashView.getWipApplication().getString(R.string.unknown_error))
     }
 }

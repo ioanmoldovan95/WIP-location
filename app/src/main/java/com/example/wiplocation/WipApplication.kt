@@ -1,8 +1,8 @@
 package com.example.wiplocation
 
 import android.app.Application
-import com.example.wiplocation.service.RealmDbService
-import com.example.wiplocation.service.WipLocationService
+import com.example.wiplocation.repository.RealmDbService
+import com.example.wiplocation.webservice.WipLocationService
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient

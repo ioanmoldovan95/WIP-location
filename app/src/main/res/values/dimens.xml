@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="location_item_min_height">150dp</dimen>
+    <dimen name="location_item_min_height">200dp</dimen>
     <dimen name="location_item_layout_margin">12dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
 </resources>
