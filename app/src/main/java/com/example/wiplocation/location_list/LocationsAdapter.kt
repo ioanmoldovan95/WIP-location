@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.wiplocation.R
 import com.example.wiplocation.model.WipLocation
 import io.realm.RealmRecyclerViewAdapter
@@ -36,8 +37,8 @@ class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val locationImageView = itemView.findViewById<ImageView>(R.id.location_image)
 
     fun bind(wipLocation: WipLocation?) {
-        addressTextView.text = "Address " + wipLocation?.address ?: ""
-        distanceTextView.text = "Distance " + wipLocation?.distance ?: ""
-        //TODO show image
+        addressTextView.text = "Address: " + wipLocation?.address ?: ""
+        distanceTextView.text = "Distance: " + wipLocation?.distance ?: ""
+        Glide.with(itemView).load(wipLocation?.image).error(R.drawable.ic_baseline_error_24).into(locationImageView)
     }
 }
