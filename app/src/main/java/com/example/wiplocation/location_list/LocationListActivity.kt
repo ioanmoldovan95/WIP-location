@@ -6,7 +6,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -102,10 +104,12 @@ class LocationListActivity : BaseActivity(), LocationListView, LocationsListClic
         showErrorMessage(getString(R.string.location_error_string))
     }
 
-    override fun onLocationClicked(label: String) {
+    override fun onLocationClicked(label: String, view: View) {
         val intent = Intent(this, LocationDetailsActivity::class.java)
         intent.putExtra(LOCATION_LABEL_EXTRA, label)
-        startActivity(intent)
+        intent.putExtra(TRANSITION_NAME, view.transitionName)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, view.transitionName)
+        startActivity(intent, options.toBundle())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -144,5 +148,6 @@ class LocationListActivity : BaseActivity(), LocationListView, LocationsListClic
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 10001
         const val LOCATION_LABEL_EXTRA = "location_label_extra"
+        const val TRANSITION_NAME = "transition_name"
     }
 }

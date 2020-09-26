@@ -1,5 +1,6 @@
 package com.example.wiplocation.location_details
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,6 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.NavUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.wiplocation.R
 import com.example.wiplocation.base.BaseActivity
 import com.example.wiplocation.base.LocationDetailsDialog
@@ -35,6 +40,7 @@ class LocationDetailsActivity : BaseActivity(), LocationDetailsView, LocationDia
 
         presenter = LocationDetailsPresenter(this)
         val locationLabel = intent.getStringExtra(LocationListActivity.LOCATION_LABEL_EXTRA)
+        locationImageView.transitionName = intent.getStringExtra(LocationListActivity.TRANSITION_NAME)
         presenter.getLocationByLabel(locationLabel)
     }
 
@@ -43,7 +49,28 @@ class LocationDetailsActivity : BaseActivity(), LocationDetailsView, LocationDia
         labelTextView.text = location.label
         addressTextView.text = getString(R.string.address, location.address)
         coordinatesTextView.text = getString(R.string.coordinates, location.lat, location.lng)
-        Glide.with(this).load(location.image).placeholder(R.drawable.ic_baseline_error_24)
+        supportPostponeEnterTransition()
+        Glide.with(this).load(location.image)
+            .placeholder(R.drawable.ic_baseline_error_24)
+            .dontAnimate()
+            .addListener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    supportStartPostponedEnterTransition()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    supportStartPostponedEnterTransition()
+                    return false
+                }
+
+            })
             .into(locationImageView)
     }
 

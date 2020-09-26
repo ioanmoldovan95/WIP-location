@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wiplocation.R
@@ -34,8 +35,9 @@ class LocationsAdapter(
 
     override fun onBindViewHolder(holder: LocationVerticalViewHolder, position: Int) {
         holder.bind(wipLocationResults[position])
+        ViewCompat.setTransitionName(holder.locationImageView, "image_view$position")
         holder.itemView.setOnClickListener {
-            callback.onLocationClicked(wipLocationResults[position]?.label ?: WipApplication.EMPTY_STRING)
+            callback.onLocationClicked(wipLocationResults[position]?.label ?: WipApplication.EMPTY_STRING, holder.locationImageView)
         }
     }
 
@@ -52,7 +54,7 @@ class LocationsAdapter(
 class LocationVerticalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val addressTextView = itemView.findViewById<TextView>(R.id.address)
     private val distanceTextView = itemView.findViewById<TextView>(R.id.distance)
-    private val locationImageView = itemView.findViewById<ImageView>(R.id.location_image)
+    val locationImageView: ImageView = itemView.findViewById(R.id.location_image)
 
     fun bind(wipLocation: WipLocation?) {
         addressTextView.text = itemView.resources.getString(R.string.address, wipLocation?.address ?: WipApplication.EMPTY_STRING)
