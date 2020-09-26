@@ -14,14 +14,14 @@ import com.example.wiplocation.base.LocationDialogCallback
 import com.example.wiplocation.location_list.LocationListActivity
 import com.example.wiplocation.model.WipLocation
 
-class LocationDetailsActivity : BaseActivity(), LocationDetailsView , LocationDialogCallback{
+class LocationDetailsActivity : BaseActivity(), LocationDetailsView, LocationDialogCallback {
     lateinit var presenter: LocationDetailsPresenter
     lateinit var labelTextView: TextView
     lateinit var addressTextView: TextView
     lateinit var coordinatesTextView: TextView
     lateinit var locationImageView: ImageView
 
-    private lateinit var currentLocationDetails : WipLocation
+    private lateinit var currentLocationDetails: WipLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class LocationDetailsActivity : BaseActivity(), LocationDetailsView , LocationDi
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         labelTextView = findViewById(R.id.label_text_view)
         addressTextView = findViewById(R.id.address_text_view)
-        coordinatesTextView = findViewById(R.id.coordinates_text_view)
+        coordinatesTextView = findViewById(R.id.extra_details_text_view)
         locationImageView = findViewById(R.id.location_image)
 
         presenter = LocationDetailsPresenter(this)

@@ -13,16 +13,26 @@ import com.example.wiplocation.model.WipLocation
 import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
 
-class LocationsAdapter(private var wipLocationResults: RealmResults<WipLocation>, private val callback:LocationsListClickListener) :
-    RealmRecyclerViewAdapter<WipLocation, LocationViewHolder>(wipLocationResults, true, true) {
+class LocationsAdapter(
+    private var wipLocationResults: RealmResults<WipLocation>,
+    private val callback: LocationsListClickListener,
+    private var recyclerViewOrientation: RecyclerViewOrientation = RecyclerViewOrientation.VERTICAL
+) :
+    RealmRecyclerViewAdapter<WipLocation, LocationVerticalViewHolder>(wipLocationResults, true, true) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationVerticalViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.location_item, parent, false)
-        return LocationViewHolder(itemView)
+            LayoutInflater.from(parent.context).inflate(
+                if (recyclerViewOrientation == RecyclerViewOrientation.VERTICAL) {
+                    R.layout.location_item_vertical
+                } else {
+                    R.layout.location_item_horizontal
+                }, parent, false
+            )
+        return LocationVerticalViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationVerticalViewHolder, position: Int) {
         holder.bind(wipLocationResults[position])
         holder.itemView.setOnClickListener {
             callback.onLocationClicked(wipLocationResults[position]?.label ?: WipApplication.EMPTY_STRING)
@@ -33,9 +43,13 @@ class LocationsAdapter(private var wipLocationResults: RealmResults<WipLocation>
         this.wipLocationResults = wipLocationResults
         notifyDataSetChanged()
     }
+
+    fun setRecyclerViewOrientation(recyclerViewOrientation: RecyclerViewOrientation) {
+        this.recyclerViewOrientation = recyclerViewOrientation
+    }
 }
 
-class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class LocationVerticalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val addressTextView = itemView.findViewById<TextView>(R.id.address)
     private val distanceTextView = itemView.findViewById<TextView>(R.id.distance)
     private val locationImageView = itemView.findViewById<ImageView>(R.id.location_image)

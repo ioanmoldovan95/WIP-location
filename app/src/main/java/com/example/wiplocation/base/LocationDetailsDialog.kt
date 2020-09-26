@@ -1,6 +1,5 @@
 package com.example.wiplocation.base
 
-import android.app.Dialog
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.example.wiplocation.R
 import com.example.wiplocation.WipApplication
 import com.example.wiplocation.location_details.LocationDetailsActivity
 import com.example.wiplocation.model.WipLocation
-import kotlin.math.ln
 
 class LocationDetailsDialog : DialogFragment() {
 
@@ -55,6 +53,7 @@ class LocationDetailsDialog : DialogFragment() {
             this.dismiss()
         }
         positiveButton.setOnClickListener {
+            //TODO this needs some data validation
             val label = labelEditText.text.toString()
             val address = addressEditText.text.toString()
             val imageUrl = imageEditText.text.toString()

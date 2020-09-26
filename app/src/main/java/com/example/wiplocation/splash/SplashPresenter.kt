@@ -12,13 +12,13 @@ import retrofit2.Response
 
 class SplashPresenter(
     val splashView: SplashView,
-): BasePresenter(splashView), LocationsDbCallback {
+) : BasePresenter(splashView), LocationsDbCallback {
     private val wipLocationService: WipLocationService =
         splashView.getWipApplication().wipLocationService
 
     fun getLocationsList() {
         if (!hasNetworkConnectivity()) {
-            if(realmDbService.hasData()){
+            if (realmDbService.hasData()) {
                 splashView.goToLocationsListActivity(false)
             } else {
                 splashView.onNoNetworkConnectivity()

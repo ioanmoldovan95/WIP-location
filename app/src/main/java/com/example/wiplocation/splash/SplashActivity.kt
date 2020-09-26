@@ -23,6 +23,7 @@ class SplashActivity : BaseActivity(), SplashView {
         Toast.makeText(applicationContext, "Locations list fetched successfully", Toast.LENGTH_LONG).show()
         val intent = Intent(this, LocationListActivity::class.java)
         startActivity(intent)
+        this.finish()
     }
 
     override fun onNoNetworkConnectivity() {
@@ -33,8 +34,8 @@ class SplashActivity : BaseActivity(), SplashView {
             setPositiveButton(R.string.retry) { _, _ ->
                 presenter.getLocationsList()
             }
-            setNegativeButton(R.string.exit) {
-                _, _ -> finish()
+            setNegativeButton(R.string.exit) { _, _ ->
+                finish()
             }
         }
         alertDialogBuilder.create().show()

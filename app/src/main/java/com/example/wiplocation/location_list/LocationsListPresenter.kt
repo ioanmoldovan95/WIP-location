@@ -37,7 +37,7 @@ class LocationsListPresenter(private val locationListView: LocationListView) : B
         }
     }
 
-    private fun getDistanceString(distance: Float) : String {
+    private fun getDistanceString(distance: Float): String {
         return if (distance < 1000) {
             "$distance meters"
         } else {
@@ -50,11 +50,11 @@ class LocationsListPresenter(private val locationListView: LocationListView) : B
     fun addNewLocation(wipLocation: WipLocation) {
         val locationProvider = LocationServices.getFusedLocationProviderClient(locationListView as AppCompatActivity)
         locationProvider.lastLocation.addOnSuccessListener {
-                val location = Location(WipApplication.EMPTY_STRING)
-                location.latitude = wipLocation.lat
-                location.longitude = wipLocation.lng
-                val distance = location.distanceTo(it)
-                realmDbService.updateLocation(wipLocation, getDistanceString(distance))
+            val location = Location(WipApplication.EMPTY_STRING)
+            location.latitude = wipLocation.lat
+            location.longitude = wipLocation.lng
+            val distance = location.distanceTo(it)
+            realmDbService.updateLocation(wipLocation, getDistanceString(distance))
         }.addOnFailureListener {
             locationListView.showLocationFailedErrorMessage()
         }

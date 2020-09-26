@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface WipLocationService {
 
     @GET("/mylocations")
-    fun getLocationsList() : Call<LocationListResponse>
+    fun getLocationsList(): Call<LocationListResponse>
 }

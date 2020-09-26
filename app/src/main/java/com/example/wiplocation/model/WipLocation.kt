@@ -2,7 +2,6 @@ package com.example.wiplocation.model
 
 import com.example.wiplocation.WipApplication
 import io.realm.RealmObject
-import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 
 open class WipLocation() : RealmObject() {
